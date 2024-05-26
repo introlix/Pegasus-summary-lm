@@ -14,6 +14,15 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
+      - name: Prepare repository for push
+        run: |
+          git fetch --unshallow || echo "Repository is already unshallow"
+          git remote set-url origin https://github.com/introlix/Pegasus-summary-lm.git
+          git checkout --orphan temp
+          git add -A
+          git commit -m "Initial commit"
+          git branch -D main
+          git branch -m main
       - name: Push to hub
         env:
           HF: ${{ secrets.HG }}
