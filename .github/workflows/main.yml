@@ -3,7 +3,7 @@ on:
   push:
     branches: [main]
 
-  # to run this workflow manually from the Actions tab
+  # To run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
@@ -14,17 +14,21 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
-      - name: Prepare repository for push
+      
+      - name: Set up Git user
         run: |
-          git fetch --unshallow || echo "Repository is already unshallow"
-          git remote set-url origin https://github.com/introlix/Pegasus-summary-lm.git
+          git config --global user.email "tubex998@gmail.com"
+          git config --global user.name "satyam998"
+
+      - name: Create a new branch
+        run: |
           git checkout --orphan temp
           git add -A
           git commit -m "Initial commit"
           git branch -D main
           git branch -m main
-      - name: Push to hub
+
+      - name: Force push to hub
         env:
           HF: ${{ secrets.HG }}
-        run: git push https://satyam998:$HF@huggingface.co/spaces/satyam998/pegasus-summary-lm main
-
+        run: git push --force https://satyam998:$HF@huggingface.co/spaces/satyam998/pegasus-summary-lm main
