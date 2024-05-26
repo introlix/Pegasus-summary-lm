@@ -1,6 +1,6 @@
 ---
 title: Pegasus Summary Lm
-emoji: 👁
+emoji: 🔥
 colorFrom: green
 colorTo: pink
 sdk: docker
